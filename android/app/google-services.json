@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "500385588257",
+    "project_id": "babasai-mission",
+    "storage_bucket": "babasai-mission.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:500385588257:android:31a42c5764e25a9d4eaf60",
+        "android_client_info": {
+          "package_name": "com.package.babasai"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "500385588257-jg65vlbruoo6k5srlid61js4jqn6p3ng.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxj1GIvbKLTEFEL3xmW9Ys0dfiqFlC31o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "500385588257-jg65vlbruoo6k5srlid61js4jqn6p3ng.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
