@@ -106,14 +106,24 @@ class _RegisterState extends State<Register>
   }
 
   Future<void> _uploadAndSaveImage() async {
-    _passController.text == _cpassController.text
-        ? _emailController.text.isNotEmpty &&
-        _passController.text.isNotEmpty &&
-        _cpassController.text.isNotEmpty &&
-        _nameController.text.isNotEmpty
-        ? _uploadToStorage()
-        : _displayDialog("Please fill up the entire form")
-        : _displayDialog("Passwords do not match");
+    if(_imageFile==null){
+      showDialog(
+        context: context,
+        builder: (c){
+          return ErrorAlertDialog(message: 'Please select your profile picture',);
+        }
+      );
+    }
+    else{
+      _passController.text == _cpassController.text
+          ? _emailController.text.isNotEmpty &&
+          _passController.text.isNotEmpty &&
+          _cpassController.text.isNotEmpty &&
+          _nameController.text.isNotEmpty
+          ? _uploadToStorage()
+          : _displayDialog("Please fill up the entire form")
+          : _displayDialog("Passwords do not match");
+    }
   }
 
   _displayDialog(String msg){

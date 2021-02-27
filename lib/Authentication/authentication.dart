@@ -20,7 +20,7 @@ class _AuthenticScreenState extends State<AuthenticScreen> {
         appBar: AppBar(
           title: Text(
               'Babasai Mission',
-              style: TextStyle(fontSize: 45.0, color: Colors.white)
+              style: TextStyle(fontSize: 40.0, color: Colors.white)
           ),
           centerTitle: true,
           bottom: TabBar(
