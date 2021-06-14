@@ -18,10 +18,19 @@ class _AuthenticScreenState extends State<AuthenticScreen> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(
-              'Babasai Mission',
-              style: TextStyle(fontSize: 40.0, color: Colors.white)
+          title: Column(
+            children: [
+              Text(
+                'Babasai Mission',
+                style: TextStyle(color: Colors.white, fontSize: 30.0, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                'A mission for humanity through education',
+                style: TextStyle(color: Colors.white, fontSize: 14.0),
+              )
+            ],
           ),
+
           centerTitle: true,
           bottom: TabBar(
             tabs: [

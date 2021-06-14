@@ -138,6 +138,8 @@ class _LoginState extends State<Login>
   Future readData(FirebaseUser fUser) async
   {
     Firestore.instance.collection("users").document(fUser.uid).get().then((dataSnapshot) async {
+      //FirebaseFirestore.instance.collection("users").document(fUser.uid).get().then((dataSnapshot) async {
+      //FirebaseFirestore.getInstance().collection("Users").document(phoneno).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
 
       await Babasai.sharedPreferences.setString("uid", dataSnapshot.data[Babasai.userUID]);
 

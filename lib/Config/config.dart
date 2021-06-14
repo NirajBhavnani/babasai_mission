@@ -12,10 +12,10 @@ class Babasai
   static FirebaseAuth auth;
   static Firestore firestore ;
 
-  static String collectionUser = "users";
-  static String collectionOrders = "orders";
-  static String userCartList = 'userCart';
-  static String subCollectionAddress = 'userAddress';
+  // static String collectionUser = "users";
+  // static String collectionOrders = "orders";
+  // static String userCartList = 'userCart';
+  // static String subCollectionAddress = 'userAddress';
 
   static final String userName = 'name';
   static final String userEmail = 'email';
@@ -23,11 +23,11 @@ class Babasai
   static final String userUID = 'uid';
   static final String userAvatarUrl = 'url';
 
-  static final String addressID = 'addressID';
-  static final String totalAmount = 'totalAmount';
-  static final String productID = 'productIDs';
-  static final String paymentDetails ='paymentDetails';
-  static final String orderTime ='orderTime';
-  static final String isSuccess ='isSuccess';
+  // static final String addressID = 'addressID';
+  // static final String totalAmount = 'totalAmount';
+  // static final String productID = 'productIDs';
+  // static final String paymentDetails ='paymentDetails';
+  // static final String orderTime ='orderTime';
+  // static final String isSuccess ='isSuccess';
 
 }

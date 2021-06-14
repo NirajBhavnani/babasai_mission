@@ -12,9 +12,19 @@ class AdminSignInPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-            'Babasai Mission',
-            style: TextStyle(fontSize: 40.0, color: Colors.white)
+        title: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Babasai Mission',
+              style: TextStyle(color: Colors.white, fontSize: 25.0, fontWeight: FontWeight.bold),
+            ),
+            Text(
+              'A mission for humanity through education',
+              style: TextStyle(color: Colors.white, fontSize: 12.0),
+            )
+          ],
         ),
         centerTitle: true,
       ),
@@ -34,6 +44,7 @@ class _AdminSignInScreenState extends State<AdminSignInScreen>
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _adminIDController = TextEditingController();
   final TextEditingController _passController = TextEditingController();
+  String _user;
 
   @override
   Widget build(BuildContext context) {
@@ -130,9 +141,10 @@ class _AdminSignInScreenState extends State<AdminSignInScreen>
           setState(() {
             _adminIDController.text= '';
             _passController.text= '';
+            _user = result.data["name"];
           });
 
-          Route route = MaterialPageRoute(builder: (c)=> AdminHome());
+          Route route = MaterialPageRoute(builder: (c)=> AdminHome(user: _user));
           Navigator.pushReplacement(context, route);
 
         }
