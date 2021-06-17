@@ -78,11 +78,17 @@ class _AdminHomeState extends State<AdminHome> {
               fontWeight: FontWeight.bold,
               fontSize: 20, color: Colors.purple,
             ),),
-
             SizedBox(height: 15,),
 
+            Text('Pending Forms:', style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 14, color: Colors.black,
+            ),),
+
+            SizedBox(height: 5,),
+
             StreamBuilder(
-              stream: Firestore.instance.collection("forms").where("approval", isEqualTo: false).orderBy("publishedDate", descending: true).limit(15).snapshots(),
+              stream: Firestore.instance.collection("forms").where("approval", isEqualTo: false).orderBy("publishedDate", descending: true).snapshots(),
               builder: (context, snapshot){
 
                 if(snapshot.data == null) return CircularProgressIndicator();

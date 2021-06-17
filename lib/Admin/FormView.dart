@@ -13,11 +13,16 @@ class FormView extends StatefulWidget {
 }
 
 class _FormViewState extends State<FormView> {
+
   int noOfItems = 1;
 
   @override
   Widget build(BuildContext context) {
-    // Size screensize = MediaQuery.of(context).size;
+
+    bool isApprove = widget.formModel.approval;
+    bool isVisible = !isApprove;
+    bool _isVisible = isApprove;
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -97,32 +102,78 @@ class _FormViewState extends State<FormView> {
                             width: MediaQuery.of(context).size.width - 40.0,
                             height: 50.0,
 
-                            child: RaisedButton(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(9.0)),
-                              child: Text(
-                                'Approve!',
-                                style: TextStyle(
-                                    fontSize: 15.0,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold
+                            child: Visibility(
+                              visible: isVisible,
+                              child: RaisedButton(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(9.0)),
+                                child: Text(
+                                  'Approve! ✅',
+                                  style: TextStyle(
+                                      fontSize: 15.0,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold
+                                  ),
                                 ),
-                              ),
-                              color: Colors.purple,
-                              onPressed: (){
+                                color: Colors.purple,
+                                onPressed: (){
 
-                                Firestore.instance.collection('forms').document(widget.doc_id).updateData({
-                                  'approval': true,
-                                });
-                                print(widget.doc_id);
-                                _showDialog(context);
-                                Navigator.pop(context, true);
-                              },
+                                  Firestore.instance.collection('forms').document(widget.doc_id).updateData({
+                                    'approval': true,
+                                  });
+                                  print(widget.doc_id);
+                                  isVisible = !isVisible;
+                                  _showDialog(context);
+                                  Navigator.pop(context, true);
+                                },
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
+
+                    Padding(
+                      padding: EdgeInsets.only(top: 8.0),
+                      child: Center(
+                        child: InkWell(
+                          onTap: ()=> print("Clicked"),
+                          child: Container(
+                            color: Colors.grey[300],
+                            width: MediaQuery.of(context).size.width - 40.0,
+                            height: 50.0,
+
+                            child: Visibility(
+                              visible: _isVisible,
+                              child: RaisedButton(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(9.0)),
+                                child: Text(
+                                  'Revoke! 🚫',
+                                  style: TextStyle(
+                                      fontSize: 15.0,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold
+                                  ),
+                                ),
+                                color: Colors.purple,
+                                onPressed: (){
+
+                                  Firestore.instance.collection('forms').document(widget.doc_id).updateData({
+                                    'approval': false,
+                                  });
+                                  print(widget.doc_id);
+                                  _isVisible = !_isVisible;
+                                  _showDialog(context);
+                                  Navigator.pop(context, true);
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+
                   ],
                 ),
               ),

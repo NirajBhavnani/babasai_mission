@@ -40,6 +40,14 @@ class _AdminApprovalState extends State<AdminApproval> {
         child: Center(
           child: Column(
             children: [
+              SizedBox(height: 25,),
+
+              Text('Approved Forms:', style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 14, color: Colors.black,
+              ),),
+              SizedBox(height: 5,),
+
               StreamBuilder(
                 stream: Firestore.instance.collection("forms").where(
                     "approval", isEqualTo: true).orderBy(

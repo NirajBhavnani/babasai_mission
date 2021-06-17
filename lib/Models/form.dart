@@ -14,7 +14,7 @@ class FormModel {
   int total;
   Timestamp publishedDate;
   String rationUrl;
-  //String subjects;
+  String subjects;
   bool approval;
 
   FormModel(
@@ -28,7 +28,7 @@ class FormModel {
         this.school,
         this.publishedDate,
         this.rationUrl,
-        //this.subjects,
+        this.subjects,
         this.total,
         this.approval,
       });
@@ -44,7 +44,7 @@ class FormModel {
     school = json['school'];
     publishedDate = json['publishedDate'];
     rationUrl = json['rationUrl'];
-    //subjects = json['subjects'];
+    subjects = json['subjects'];
     total = json['total'];
     approval = json['approval'];
   }
@@ -63,7 +63,7 @@ class FormModel {
       data['publishedDate'] = this.publishedDate;
     }
     data['rationUrl'] = this.rationUrl;
-    //data['subjects'] = this.subjects;
+    data['subjects'] = this.subjects;
     data['total'] = this.total;
     data['approval'] = this.approval;
     return data;

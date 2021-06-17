@@ -45,6 +45,23 @@ class _Form1_10State extends State<Form1_10> with AutomaticKeepAliveClientMixin<
   };
 
   var subArray = [];
+  var stringSub;
+  var count;
+
+  getCheckboxItems() {
+
+    subjects.forEach((key, value) {
+      if (value == true) {
+        subArray.add(key);
+        subArray.toSet().toList();
+      }
+    });
+    print(subArray);
+    count = subArray.length;
+    print(count);
+    stringSub = subArray.join(", ");
+    subArray.clear();
+  }
 
   bool approvalVal = false;
 
@@ -192,6 +209,7 @@ class _Form1_10State extends State<Form1_10> with AutomaticKeepAliveClientMixin<
                   onChanged: (bool value) {
                     setState(() {
                       subjects[key] = value;
+                      getCheckboxItems();
                     });
                   },
                 );
@@ -207,6 +225,11 @@ class _Form1_10State extends State<Form1_10> with AutomaticKeepAliveClientMixin<
                       if (value.isEmpty) {
                         return 'Please enter the number.';
                       }
+                      if(value.toString() != count.toString())
+                        {
+                          _totalControl.clear();
+                          return 'Total count is not same as the no. of selected books';
+                        }
                     },
                     ),
                 SizedBox(
@@ -238,9 +261,8 @@ class _Form1_10State extends State<Form1_10> with AutomaticKeepAliveClientMixin<
                         if(fileName =='No file selected'){
                           _displayDialog('Please upload Ration Card');
                         }
-                        else if (form.validate() && fileName!='No file selected') {
+                        else if (form.validate()) {
                           form.save();
-                          //getCheckboxItems;
                           uploadImageAndSaveInfo();//submitting the information to firestore
                           _showDialog(context);
                         }
@@ -348,7 +370,7 @@ class _Form1_10State extends State<Form1_10> with AutomaticKeepAliveClientMixin<
       "total" : int.parse(_totalControl.text),
       "rationUrl" : downloadUrl,
       "publishedDate" : DateTime.now(),
-      //"subjects" : subArray,
+      "subjects" : stringSub,
       "approval" : approvalVal,
     });
 
@@ -376,11 +398,4 @@ class _Form1_10State extends State<Form1_10> with AutomaticKeepAliveClientMixin<
 
   }
 
-  getCheckboxItems() {
-    subjects.forEach((key, value) {
-      if (value == true) {
-        subArray.add(key);
-      }
-    });
-  }
 }
