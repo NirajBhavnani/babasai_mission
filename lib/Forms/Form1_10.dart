@@ -241,7 +241,7 @@ class _Form1_10State extends State<Form1_10> with AutomaticKeepAliveClientMixin<
                         else if (form.validate() && fileName!='No file selected') {
                           form.save();
                           //getCheckboxItems;
-                          uploadImageAndSaveInfo();
+                          uploadImageAndSaveInfo();//submitting the information to firestore
                           _showDialog(context);
                         }
                       },

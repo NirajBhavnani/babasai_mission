@@ -1,3 +1,4 @@
+//Model Class for accessing cloud firestore
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FormModel {

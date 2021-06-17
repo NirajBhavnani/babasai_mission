@@ -19,7 +19,9 @@ class _AdminApprovalState extends State<AdminApproval> {
           children: [
             Text(
               'Babasai Mission',
-              style: TextStyle(color: Colors.white, fontSize: 30.0, fontWeight: FontWeight.bold),
+              style: TextStyle(color: Colors.white,
+                  fontSize: 30.0,
+                  fontWeight: FontWeight.bold),
             ),
             Text(
               'A mission for humanity through education',
@@ -31,22 +33,27 @@ class _AdminApprovalState extends State<AdminApproval> {
       ),
       body: Container(
         color: Colors.purpleAccent.shade50,
-        width: MediaQuery.of(context).size.width,
+        width: MediaQuery
+            .of(context)
+            .size
+            .width,
         child: Center(
           child: Column(
             children: [
               StreamBuilder(
-                stream: Firestore.instance.collection("forms").where("approval", isEqualTo: true).orderBy("publishedDate", descending: true).snapshots(),
-                builder: (context, snapshot){
-
-                  if(snapshot.data == null) return CircularProgressIndicator();
+                stream: Firestore.instance.collection("forms").where(
+                    "approval", isEqualTo: true).orderBy(
+                    "publishedDate", descending: true).snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.data == null) return CircularProgressIndicator();
                   return ListView.builder(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     itemCount: snapshot.data.documents.length,
-                    itemBuilder: (context, index){
+                    itemBuilder: (context, index) {
                       DocumentSnapshot form = snapshot.data.documents[index];
-                      FormModel modelRef = FormModel.fromJson(snapshot.data.documents[index].data);
+                      FormModel modelRef = FormModel.fromJson(snapshot.data
+                          .documents[index].data);
                       var docId = form.documentID;
 
                       return Padding(
@@ -58,17 +65,20 @@ class _AdminApprovalState extends State<AdminApproval> {
                           ),
 
                           child: ListTile(
-                            title: Text(form["name"], style: TextStyle(color: Colors.black, fontSize: 18.0),),
-                            subtitle: Text(form["std"].toString(), style: TextStyle(color: Colors.black54, fontSize: 14.0),),
+                            title: Text(form["name"], style: TextStyle(
+                                color: Colors.black, fontSize: 18.0),),
+                            subtitle: Text(form["std"].toString(),
+                              style: TextStyle(
+                                  color: Colors.black54, fontSize: 14.0),),
                             leading: CircleAvatar(
                               child: Icon(Icons.assignment),
                               foregroundColor: Colors.deepPurple,
                               backgroundColor: Colors.grey[300],
                             ),
 
-                            onTap: ()
-                            {
-                              Route route = MaterialPageRoute(builder: (c)=> FormView(formModel: modelRef, doc_id: docId));
+                            onTap: () {
+                              Route route = MaterialPageRoute(builder: (c) =>
+                                  FormView(formModel: modelRef, doc_id: docId));
                               Navigator.push(context, route);
                             },
                           ),
