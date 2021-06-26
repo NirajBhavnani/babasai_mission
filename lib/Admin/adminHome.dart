@@ -54,8 +54,7 @@ class _AdminHomeState extends State<AdminHome> {
               //child: Text('Log out', style: TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.bold),),
               icon: Icon(Icons.logout, color: Colors.white,),
               onPressed: (){
-                Route route = MaterialPageRoute(builder: (c)=> SplashScreen());
-                Navigator.pushReplacement(context, route);
+                Navigator.of(context).pop(true);
               },
             ),
           ],
@@ -110,8 +109,8 @@ class _AdminHomeState extends State<AdminHome> {
                         ),
 
                         child: ListTile(
-                          title: Text(form["name"], style: TextStyle(color: Colors.black, fontSize: 18.0),),
-                          subtitle: Text(form["std"].toString(), style: TextStyle(color: Colors.black54, fontSize: 14.0),),
+                          title: Text("Name: " + form["name"] + " Std: " + form["std"].toString(), style: TextStyle(color: Colors.black, fontSize: 18.0),),
+                          subtitle: Text("Form submitted: " +form["publishedDate"].toDate().toString(), style: TextStyle(color: Colors.black54, fontSize: 14.0),),
                           leading: CircleAvatar(
                             child: Icon(Icons.assignment),
                             foregroundColor: Colors.deepPurple,

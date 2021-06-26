@@ -50,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   displaySplash(){
-    Timer(Duration(seconds: 5), () async {
+    Timer(Duration(seconds: 3), () async {
       if(await Babasai.auth.currentUser() != null){
         Route route = MaterialPageRoute(builder: (_)=> Home());
         Navigator.pushReplacement(context, route);

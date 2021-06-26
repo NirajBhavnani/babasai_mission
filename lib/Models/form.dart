@@ -6,6 +6,7 @@ class FormModel {
   String name = '';
   int age;
   int std;
+  double percentage;
   String medium = '';
   String FG = '';
   String address = '';
@@ -13,40 +14,48 @@ class FormModel {
   String school = '';
   int total;
   Timestamp publishedDate;
-  String rationUrl;
+  String reportUrl;
+  String aadharUrl;
   String subjects;
   bool approval;
+  String email;
 
   FormModel(
       {this.name,
         this.age,
         this.std,
+        this.percentage,
         this.medium,
         this.FG,
         this.address,
         this.contact,
         this.school,
         this.publishedDate,
-        this.rationUrl,
+        this.reportUrl,
+        this.aadharUrl,
         this.subjects,
         this.total,
         this.approval,
+        this.email,
       });
 
   FormModel.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     age = json['age'];
     std = json['std'];
+    percentage = json['percentage'];
     medium = json['medium'];
     FG = json['FG'];
     address = json['address'];
     contact = json['contact'];
     school = json['school'];
     publishedDate = json['publishedDate'];
-    rationUrl = json['rationUrl'];
+    reportUrl = json['reportUrl'];
+    aadharUrl = json['aadharUrl'];
     subjects = json['subjects'];
     total = json['total'];
     approval = json['approval'];
+    email = json['email'];
   }
 
   Map<String, dynamic> toJson() {
@@ -54,6 +63,7 @@ class FormModel {
     data['name'] = this.name;
     data['age'] = this.age;
     data['std'] = this.std;
+    data['percentage'] = this.percentage;
     data['medium'] = this.medium;
     data['FG'] = this.FG;
     data['address'] = this.address;
@@ -62,10 +72,12 @@ class FormModel {
     if (this.publishedDate != null) {
       data['publishedDate'] = this.publishedDate;
     }
-    data['rationUrl'] = this.rationUrl;
+    data['reportUrl'] = this.reportUrl;
+    data['aadharUrl'] = this.aadharUrl;
     data['subjects'] = this.subjects;
     data['total'] = this.total;
     data['approval'] = this.approval;
+    data['email'] = this.email;
     return data;
   }
 }

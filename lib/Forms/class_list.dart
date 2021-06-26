@@ -63,7 +63,7 @@ class _ClassListState extends State<ClassList> {
             ),
           ),
           onTap: (){
-            //Navigator.push(context, MaterialPageRoute(builder: (context)=> FormFY()));
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> FormFy()));
           },
         ),
         ListTile(
@@ -75,7 +75,7 @@ class _ClassListState extends State<ClassList> {
             ),
           ),
           onTap: (){
-            //Navigator.push(context, MaterialPageRoute(builder: (context)=> FormSY()));
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> FormSy()));
           },
         ),
         ListTile(
@@ -87,7 +87,7 @@ class _ClassListState extends State<ClassList> {
             ),
           ),
           onTap: (){
-            //Navigator.push(context, MaterialPageRoute(builder: (context)=> FormTY()));
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> FormTy()));
           },
         ),
       ],

@@ -7,8 +7,8 @@ import 'package:provider/provider.dart';
 import 'package:babasai_mission/Config/config.dart';
 import '../Widgets/loadingWidget.dart';
 import 'package:babasai_mission/Forms/class_list.dart';
+import 'package:babasai_mission/Models/form.dart';
 
-String selectedCategory = "Your Approvals";
 double width;
 
 class Home extends StatefulWidget {
@@ -17,7 +17,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<String> categories = ["Your Approvals","Pending Approvals"];
+
+  String _getEmail = Babasai.sharedPreferences.getString(Babasai.userEmail);
+
   @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
@@ -75,8 +77,6 @@ class _HomeState extends State<Home> {
       color: Colors.purpleAccent.shade50,
       child: SingleChildScrollView(
         child: Column(
-          //crossAxisAlignment: CrossAxisAlignment.stretch,
-          // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(height: 25,),
             Text("Welcome, " + Babasai.sharedPreferences.getString(Babasai.userName)+" 😃", style: TextStyle(
@@ -104,71 +104,69 @@ class _HomeState extends State<Home> {
               ),
             ),
             SizedBox(height: 15,),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 12),
-              height: 40,
-              child: ListView.builder(
-                  itemCount: categories.length,
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  physics: ClampingScrollPhysics(),
-                  itemBuilder: (context, index){
-                    return CategorieTile(
-                      text: categories[index],
-                      isSelected: selectedCategory == categories[index],
-                    );
-                  }),
-            ),
+
+             Container(
+               color: Colors.purpleAccent.shade50,
+               width: MediaQuery.of(context).size.width,
+               child: Column(
+                 children: [
+                   Text('Form Status:', style: TextStyle(
+                     fontWeight: FontWeight.bold,
+                     fontSize: 14, color: Colors.black,
+                   ),),
+
+                   SizedBox(height: 15,),
+
+                   StreamBuilder(
+                     stream: Firestore.instance.collection("forms").where("email", isEqualTo: _getEmail.toString()).orderBy("publishedDate", descending: true).snapshots(),
+                     builder: (context, snapshot){
+
+                       if(snapshot.data == null) return CircularProgressIndicator();
+                       return ListView.builder(
+                         scrollDirection: Axis.vertical,
+                         shrinkWrap: true,
+                         itemCount: snapshot.data.documents.length,
+                         itemBuilder: (context, index){
+                           DocumentSnapshot form = snapshot.data.documents[index];
+
+                           return Padding(
+                             padding: const EdgeInsets.symmetric(vertical: 8.0),
+                             child: Container(
+                               decoration: BoxDecoration(
+                                 border: Border.all(color: Colors.grey),
+                                 borderRadius: BorderRadius.circular(5.0),
+                               ),
+
+                               child: ListTile(
+                                 title: Text("Name: " + form["name"] + " Std: " + form["std"].toString(), style: TextStyle(color: Colors.black, fontSize: 16.0),),
+                                 subtitle: getStatus(form["approval"].toString()),
+                                 leading: CircleAvatar(
+                                   child: Icon(Icons.assignment),
+                                   foregroundColor: Colors.deepPurple,
+                                   backgroundColor: Colors.grey[300],
+                                 ),
+
+                               ),
+                             ),
+                           );
+                         },
+                       );
+                     },
+                   ),
+                 ],
+               ),
+             ),
           ],
         ),
       ),
     );
   }
-
-}
-
-class CategorieTile extends StatefulWidget {
-
-  final String text;
-  final bool isSelected;
-  CategorieTile({this.text, this.isSelected});
-
-  @override
-  _CategorieTileState createState() => _CategorieTileState();
-}
-
-class _CategorieTileState extends State<CategorieTile> {
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: (){
-
-        },
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              alignment: Alignment.center,
-              padding: EdgeInsets.only(right: 12),
-              child: Text(widget.text, style: TextStyle(
-                  color: widget.isSelected ? Colors.black87 : Colors.grey,
-                  fontWeight: widget.isSelected ? FontWeight.w600 : FontWeight.w400,
-                  fontSize: widget.isSelected ? 20 : 15
-              ),),
-            ),
-            SizedBox(height: 3,),
-            widget.isSelected ? Container(
-              height: 5,
-              width: 16,
-              decoration: BoxDecoration(
-                  color: Colors.purple,
-                  borderRadius: BorderRadius.circular(12)
-              ),
-            ) : Container()
-          ],
-        )
-    );
+  getStatus(String approve){
+    if(approve == 'true'){
+      return Text('Your form is approved. Kindly collect your books within 1-2 days', style: TextStyle(color: Colors.green, fontSize: 14.0),);
+    }
+    if(approve == 'false'){
+      return Text('Verification pending', style: TextStyle(color: Colors.deepOrangeAccent, fontSize: 14.0),);
+    }
   }
 }
