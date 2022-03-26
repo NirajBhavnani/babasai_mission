@@ -19,6 +19,7 @@ class FormModel {
   String subjects;
   bool approval;
   String email;
+  var searchKeywords = [];
 
   FormModel(
       {this.name,
@@ -37,6 +38,7 @@ class FormModel {
         this.total,
         this.approval,
         this.email,
+        this.searchKeywords
       });
 
   FormModel.fromJson(Map<String, dynamic> json) {
@@ -56,6 +58,7 @@ class FormModel {
     total = json['total'];
     approval = json['approval'];
     email = json['email'];
+    searchKeywords = json['searchKeywords'];
   }
 
   Map<String, dynamic> toJson() {
@@ -78,6 +81,7 @@ class FormModel {
     data['total'] = this.total;
     data['approval'] = this.approval;
     data['email'] = this.email;
+    data['searchKeywords'] = this.searchKeywords;
     return data;
   }
 }

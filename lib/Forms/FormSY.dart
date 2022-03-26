@@ -71,6 +71,16 @@ class _FormSyState extends State<FormSy> with AutomaticKeepAliveClientMixin<Form
   bool approvalVal = false;
   String _userGetEmail = Babasai.sharedPreferences.getString(Babasai.userEmail);
 
+  setSearchParam(String name) {
+    List<String> searchList = List();
+    String temp = "";
+    for (int i = 0; i < name.length; i++) {
+      temp = temp + name[i];
+      searchList.add(temp);
+    }
+    return searchList;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -477,6 +487,7 @@ class _FormSyState extends State<FormSy> with AutomaticKeepAliveClientMixin<Form
       "subjects" : stringSub,
       "approval" : approvalVal,
       "email" : _userGetEmail,
+      "searchKeywords" : setSearchParam(_nameControl.text.trim())
     });
 
     setState(() {

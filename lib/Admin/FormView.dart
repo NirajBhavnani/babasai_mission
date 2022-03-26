@@ -1,5 +1,8 @@
 import 'dart:ui';
 
+import 'package:babasai_mission/DialogBox/errorDialog.dart';
+import 'package:babasai_mission/Models/controller.dart';
+import 'package:babasai_mission/Models/googleForm.dart';
 import 'package:flutter/material.dart';
 import 'package:babasai_mission/Models/form.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -16,6 +19,39 @@ class FormView extends StatefulWidget {
 class _FormViewState extends State<FormView> {
 
   int noOfItems = 1;
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  void exportData(){
+    GoogleFormModel googleForm = GoogleFormModel(
+        widget.formModel.name,
+        widget.formModel.age,
+        widget.formModel.std,
+        widget.formModel.percentage,
+        widget.formModel.medium,
+      widget.formModel.FG,
+      widget.formModel.address,
+      widget.formModel.contact,
+      widget.formModel.school,
+      widget.formModel.publishedDate.toDate().toString(),
+      widget.formModel.email,
+      widget.formModel.subjects,
+      widget.formModel.total,
+      widget.formModel.aadharUrl,
+      widget.formModel.reportUrl
+    );
+    FormController formController = FormController(
+            (String response){
+          print(response);
+          if(response == FormController.STATUS_SUCCESS){
+            _displayDialog("Exported successfully");
+          }
+          else{
+            _displayDialog("Export failure");
+          }
+        }
+    );
+    formController.exportForm(googleForm);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -211,7 +247,6 @@ class _FormViewState extends State<FormView> {
                       padding: EdgeInsets.only(top: 8.0),
                       child: Center(
                         child: InkWell(
-                          onTap: ()=> print("Clicked"),
                           child: Container(
                             // color: Colors.grey[300],
                             width: MediaQuery.of(context).size.width - 40.0,
@@ -238,7 +273,7 @@ class _FormViewState extends State<FormView> {
                                   });
                                   print(widget.doc_id);
                                   isVisible = !isVisible;
-                                  _showDialog(context);
+                                  _showDialog(context, "Approved");
                                   Navigator.pop(context, true);
                                 },
                               ),
@@ -252,7 +287,6 @@ class _FormViewState extends State<FormView> {
                       padding: EdgeInsets.only(top: 8.0),
                       child: Center(
                         child: InkWell(
-                          onTap: ()=> print("Clicked"),
                           child: Container(
                             // color: Colors.grey[300],
                             width: MediaQuery.of(context).size.width - 40.0,
@@ -279,7 +313,7 @@ class _FormViewState extends State<FormView> {
                                   });
                                   print(widget.doc_id);
                                   _isVisible = !_isVisible;
-                                  _showDialog(context);
+                                  _showDialog(context, "Revoked");
                                   Navigator.pop(context, true);
                                 },
                               ),
@@ -293,7 +327,37 @@ class _FormViewState extends State<FormView> {
                       padding: EdgeInsets.only(top: 8.0),
                       child: Center(
                         child: InkWell(
-                          onTap: ()=> print("Clicked"),
+                          child: Container(
+                            // color: Colors.grey[300],
+                            width: MediaQuery.of(context).size.width - 40.0,
+                            height: 50.0,
+
+                            child: RaisedButton(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(9.0)),
+                              child: Text(
+                                'Export Data 📄',
+                                style: TextStyle(
+                                    fontSize: 15.0,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold
+                                ),
+                              ),
+                              color: Colors.purple,
+                              onPressed: (){
+                                exportData();
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+
+
+                    Padding(
+                      padding: EdgeInsets.only(top: 8.0),
+                      child: Center(
+                        child: InkWell(
                           child: Container(
                             // color: Colors.grey[300],
                             width: MediaQuery.of(context).size.width - 40.0,
@@ -316,7 +380,7 @@ class _FormViewState extends State<FormView> {
                                 Firestore.instance.collection('forms').document(widget.doc_id).delete();
                                 print(widget.doc_id);
                                 _isVisible = !_isVisible;
-                                _showDialog(context);
+                                _showDialog(context, 'Deleted');
                                 Navigator.pop(context, true);
                               },
                             ),
@@ -335,11 +399,19 @@ class _FormViewState extends State<FormView> {
     );
   }
 
-  _showDialog(BuildContext context) {
+  _showDialog(BuildContext context, String message) {
     Scaffold.of(context)
-        .showSnackBar(SnackBar(content: Text('Approved ✅')));
+        .showSnackBar(SnackBar(content: Text(message)));
   }
 
+  _displayDialog(String msg){
+    showDialog(
+        context: context,
+        builder: (c){
+          return ErrorAlertDialog(message: msg,);
+        }
+    );
+  }
 }
 
 const boldTextStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 20);
