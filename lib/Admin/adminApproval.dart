@@ -124,6 +124,7 @@ class _AdminApprovalState extends State<AdminApproval> {
                               modelRef.email,
                               modelRef.subjects,
                               modelRef.total,
+                              modelRef.other,
                               modelRef.aadharUrl,
                               modelRef.reportUrl
                           );

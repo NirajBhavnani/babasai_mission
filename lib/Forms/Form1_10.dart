@@ -33,6 +33,7 @@ class _Form1_10State extends State<Form1_10> with AutomaticKeepAliveClientMixin<
   TextEditingController _schoolControl = TextEditingController();
   TextEditingController _totalControl = TextEditingController();
   TextEditingController _percentControl = TextEditingController();
+  TextEditingController _otherControl = TextEditingController();
 
   File file;
   File report;
@@ -43,18 +44,16 @@ class _Form1_10State extends State<Form1_10> with AutomaticKeepAliveClientMixin<
 
   Map<String, bool> subjects = {
     'English': false,
-    'Marathi': false,
+    'Maths 1': false,
+    'Maths 2': false,
     'Hindi': false,
-    'Sindhi': false,
-    'Algebra': false,
-    'Geometry': false,
+    'Marathi': false,
+    'EVS 1': false,
+    'EVS 2': false,
     'History': false,
     'Geography': false,
-    'Civics': false,
-    'Science': false,
-    'Economics': false,
-    'EVS': false,
-    'ICT': false,
+    'Science 1': false,
+    'Science 2': false,
   };
 
   var subArray = [];
@@ -293,6 +292,11 @@ class _Form1_10State extends State<Form1_10> with AutomaticKeepAliveClientMixin<
                         }
                     },
                     ),
+                TextFormField(
+                  decoration:
+                  InputDecoration(labelText: 'Other books (optional)'),
+                  controller: _otherControl
+                ),
                 SizedBox(
                   height: 15,
                 ),
@@ -494,6 +498,7 @@ class _Form1_10State extends State<Form1_10> with AutomaticKeepAliveClientMixin<
       "subjects" : stringSub,
       "approval" : approvalVal,
       "email" : _userGetEmail,
+      "other" : _otherControl.text.trim(),
       "searchKeywords" : setSearchParam(_nameControl.text.trim())
     });
 
@@ -514,6 +519,7 @@ class _Form1_10State extends State<Form1_10> with AutomaticKeepAliveClientMixin<
       _contactControl.clear();
       _schoolControl.clear();
       _totalControl.clear();
+      _otherControl.clear();
       approvalVal = false;
     });
 

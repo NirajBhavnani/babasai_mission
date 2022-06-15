@@ -19,7 +19,6 @@ class FormView extends StatefulWidget {
 class _FormViewState extends State<FormView> {
 
   int noOfItems = 1;
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   void exportData(){
     GoogleFormModel googleForm = GoogleFormModel(
@@ -36,6 +35,7 @@ class _FormViewState extends State<FormView> {
       widget.formModel.email,
       widget.formModel.subjects,
       widget.formModel.total,
+      widget.formModel.other,
       widget.formModel.aadharUrl,
       widget.formModel.reportUrl
     );
@@ -200,14 +200,28 @@ class _FormViewState extends State<FormView> {
                             height: 10.0,
                           ),
 
+                          Text(
+                            "Other Books: " + (widget.formModel.other!=null ? widget.formModel.other : ""),
+                            style: boldTextStyle,
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+
                           Text('Aadhar Card:', style: boldTextStyle),
 
                           SizedBox(height: 5,),
 
                           Stack(
                             children: [
-                              Center(
-                                child: FadeInImage.memoryNetwork(placeholder: kTransparentImage, image: widget.formModel.aadharUrl),
+                              InteractiveViewer(
+                                boundaryMargin: EdgeInsets.all(100),
+                                minScale: 0.5,
+                                maxScale: 2,
+                                panEnabled: false,
+                                child: Center(
+                                  child: FadeInImage.memoryNetwork(placeholder: kTransparentImage, image: widget.formModel.aadharUrl),
+                                ),
                               ),
                               Container(
                                 color: Colors.grey[300],
@@ -227,8 +241,14 @@ class _FormViewState extends State<FormView> {
 
                           Stack(
                             children: [
-                              Center(
-                                child: FadeInImage.memoryNetwork(placeholder: kTransparentImage, image: widget.formModel.reportUrl),
+                              InteractiveViewer(
+                                boundaryMargin: EdgeInsets.all(100),
+                                minScale: 0.5,
+                                maxScale: 2,
+                                panEnabled: false,
+                                child: Center(
+                                  child: FadeInImage.memoryNetwork(placeholder: kTransparentImage, image: widget.formModel.reportUrl),
+                                ),
                               ),
                               Container(
                                 color: Colors.grey[300],

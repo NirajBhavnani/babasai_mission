@@ -32,6 +32,7 @@ class _Form11_12State extends State<Form11_12> with AutomaticKeepAliveClientMixi
   TextEditingController _schoolControl = TextEditingController();
   TextEditingController _totalControl = TextEditingController();
   TextEditingController _percentControl = TextEditingController();
+  TextEditingController _otherControl = TextEditingController();
 
   File file;
   File report;
@@ -44,15 +45,15 @@ class _Form11_12State extends State<Form11_12> with AutomaticKeepAliveClientMixi
   bool uploading = false;
 
   Map<String, bool> subjects = {
-    'SP': false,
-    'Economics': false,
-    'BK': false,
-    'Maths': false,
-    'OC': false,
-    'Hindi': false,
-    'Sindhi': false,
     'English': false,
-    'IT': false,
+    'SP': false,
+    'Maths': false,
+    'Hindi': false,
+    'Marathi': false,
+    'Sindhi': false,
+    'OC': false,
+    'BK': false,
+    'Economics': false,
   };
 
   var subArray = [];
@@ -293,6 +294,11 @@ class _Form11_12State extends State<Form11_12> with AutomaticKeepAliveClientMixi
                     }
                   },
                 ),
+                TextFormField(
+                    decoration:
+                    InputDecoration(labelText: 'Other books (optional)'),
+                    controller: _otherControl
+                ),
                 SizedBox(
                   height: 15,
                 ),
@@ -494,6 +500,7 @@ class _Form11_12State extends State<Form11_12> with AutomaticKeepAliveClientMixi
       "subjects" : stringSub,
       "approval" : approvalVal,
       "email" : _userGetEmail,
+      "other" : _otherControl.text.trim(),
       "searchKeywords" : setSearchParam(_nameControl.text.trim())
     });
 
@@ -514,6 +521,7 @@ class _Form11_12State extends State<Form11_12> with AutomaticKeepAliveClientMixi
       _contactControl.clear();
       _schoolControl.clear();
       _totalControl.clear();
+      _otherControl.clear();
       approvalVal = false;
     });
 

@@ -19,6 +19,7 @@ class FormModel {
   String subjects;
   bool approval;
   String email;
+  String other;
   var searchKeywords = [];
 
   FormModel(
@@ -38,6 +39,7 @@ class FormModel {
         this.total,
         this.approval,
         this.email,
+        this.other,
         this.searchKeywords
       });
 
@@ -58,6 +60,7 @@ class FormModel {
     total = json['total'];
     approval = json['approval'];
     email = json['email'];
+    other = json['other'];
     searchKeywords = json['searchKeywords'];
   }
 
@@ -81,6 +84,7 @@ class FormModel {
     data['total'] = this.total;
     data['approval'] = this.approval;
     data['email'] = this.email;
+    data['other'] = this.other;
     data['searchKeywords'] = this.searchKeywords;
     return data;
   }

@@ -155,6 +155,7 @@ class _AdminHomeState extends State<AdminHome> {
                             modelRef.email,
                             modelRef.subjects,
                             modelRef.total,
+                            modelRef.other,
                             modelRef.aadharUrl,
                             modelRef.reportUrl
                         );

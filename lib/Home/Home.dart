@@ -1,13 +1,8 @@
 import 'package:babasai_mission/Authentication/authentication.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:provider/provider.dart';
 import 'package:babasai_mission/Config/config.dart';
-import '../Widgets/loadingWidget.dart';
 import 'package:babasai_mission/Forms/class_list.dart';
-import 'package:babasai_mission/Models/form.dart';
 
 double width;
 
@@ -130,7 +125,7 @@ class _HomeState extends State<Home> {
                            DocumentSnapshot form = snapshot.data.documents[index];
 
                            return Padding(
-                             padding: const EdgeInsets.symmetric(vertical: 8.0),
+                             padding: const EdgeInsets.all(10.0),
                              child: Container(
                                decoration: BoxDecoration(
                                  border: Border.all(color: Colors.grey),
@@ -145,7 +140,19 @@ class _HomeState extends State<Home> {
                                    foregroundColor: Colors.deepPurple,
                                    backgroundColor: Colors.grey[300],
                                  ),
-
+                                 trailing: IconButton(
+                                 icon: Icon(Icons.delete, color: Colors.deepPurple),
+                                 tooltip: 'Delete application form',
+                                   onPressed: () async{
+                                     //Deleting a document from firestore without knowing documentId
+                                     await Firestore.instance.runTransaction((Transaction myTransaction) async {
+                                       await myTransaction.delete(snapshot.data.documents[index].reference);
+                                     });
+                                   },
+                                 ),
+                                 contentPadding: EdgeInsets.symmetric(vertical: 6.0, horizontal:
+                                 10.0),
+                                 dense:true,
                                ),
                              ),
                            );

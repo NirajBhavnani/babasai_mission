@@ -5,7 +5,7 @@ import 'dart:convert' as convert;
 class FormController{
   final void Function(String) callback;
 
-  static const String URL = "https://script.google.com/macros/s/AKfycbwrdGwZPDQ7GX_Wt0ficnb-6A8mjWyHPAW4tU4Y5F0SRI-Nf2JYMoXIfdcq999GWl5rsw/exec";
+  static const String URL = "https://script.google.com/macros/s/AKfycbx4NrJKvEjYhayX3dWz8JN_hdU4aQrl1mJaozms3OkDE7P_bYkwcSUS7PUmOXJ-hmiIaQ/exec";
 
   static const STATUS_SUCCESS = "Success";
 

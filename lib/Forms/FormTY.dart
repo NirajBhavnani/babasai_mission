@@ -31,6 +31,7 @@ class _FormTyState extends State<FormTy> with AutomaticKeepAliveClientMixin<Form
   TextEditingController _schoolControl = TextEditingController();
   TextEditingController _totalControl = TextEditingController();
   TextEditingController _percentControl = TextEditingController();
+  TextEditingController _otherControl = TextEditingController();
 
   File file;
   File report;
@@ -38,40 +39,6 @@ class _FormTyState extends State<FormTy> with AutomaticKeepAliveClientMixin<Form
   String fileName2 = 'No file selected';
   String formId = DateTime.now().millisecondsSinceEpoch.toString();
   bool uploading = false;
-
-  Map<String, bool> subjects = {
-    'Accounts I': false,
-    'Accounts II': false,
-    'Accounts III': false,
-    'DIT': false,
-    'MHRM': false,
-    'Economics': false,
-    'Hindi': false,
-    'Sindhi': false,
-    'Marathi': false,
-    'Marketing Research': false,
-    'Export Management': false,
-    'Industrial Psychology': false,
-  };
-
-  var subArray = [];
-  var stringSub;
-  var count;
-
-  getCheckboxItems() {
-
-    subjects.forEach((key, value) {
-      if (value == true) {
-        subArray.add(key);
-        subArray.toSet().toList();
-      }
-    });
-    print(subArray);
-    count = subArray.length;
-    print(count);
-    stringSub = subArray.join(", ");
-    subArray.clear();
-  }
 
   bool approvalVal = false;
   String _userGetEmail = Babasai.sharedPreferences.getString(Babasai.userEmail);
@@ -247,47 +214,22 @@ class _FormTyState extends State<FormTy> with AutomaticKeepAliveClientMixin<Form
                 SizedBox(
                   height: 15,
                 ),
-                Text(
-                  "Subjects:",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.purple,
-                  ),
-                ),
-                SizedBox(
-                  height: 200,
-                  child :
-                  ListView(
-                    shrinkWrap: true,
-                    children: subjects.keys.map((String key) {
-                      return new CheckboxListTile(
-                        title: new Text(key),
-                        value: subjects[key],
-                        activeColor: Colors.purple,
-                        checkColor: Colors.white,
-                        onChanged: (bool value) {
-                          setState(() {
-                            subjects[key] = value;
-                            getCheckboxItems();
-                          });
-                        },
-                      );
-                    }).toList(),
-                  ),
+                TextFormField(
+                  decoration: InputDecoration(labelText: 'Books'),
+                  controller: _otherControl,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Please enter the books.';
+                    }
+                  },
                 ),
                 TextFormField(
-                  decoration:
-                  InputDecoration(labelText: 'Total No. of Books'),
+                  decoration: InputDecoration(labelText: 'Total No. of Books'),
                   controller: _totalControl,
                   keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value.isEmpty) {
                       return 'Please enter the number.';
-                    }
-                    if(value.toString() != count.toString())
-                    {
-                      _totalControl.clear();
-                      return 'Total count is not same as the no. of selected books';
                     }
                   },
                 ),
@@ -489,9 +431,9 @@ class _FormTyState extends State<FormTy> with AutomaticKeepAliveClientMixin<Form
       "reportUrl" : downloadUrl2,
       "aadharUrl" : downloadUrl,
       "publishedDate" : DateTime.now(),
-      "subjects" : stringSub,
       "approval" : approvalVal,
       "email" : _userGetEmail,
+      "other": _otherControl.text.trim(),
       "searchKeywords" : setSearchParam(_nameControl.text.trim())
     });
 
@@ -512,6 +454,7 @@ class _FormTyState extends State<FormTy> with AutomaticKeepAliveClientMixin<Form
       _contactControl.clear();
       _schoolControl.clear();
       _totalControl.clear();
+      _otherControl.clear();
       approvalVal = false;
     });
 
